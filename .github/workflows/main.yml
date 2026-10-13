@@ -27,18 +27,28 @@ jobs:
         with:
           gradle-version: '8.1.1'
 
+      - name: Localizar el proyecto (donde esta settings.gradle)
+        id: proj
+        run: |
+          f=$(find . -name settings.gradle -not -path './.git/*' | head -n 1)
+          if [ -z "$f" ]; then echo "No se encontro settings.gradle en el repo"; exit 1; fi
+          d=$(dirname "$f")
+          echo "Proyecto en: $d"
+          echo "dir=$d" >> "$GITHUB_OUTPUT"
+
       - name: Build
+        working-directory: ${{ steps.proj.outputs.dir }}
         run: gradle build --no-daemon
 
       - name: Subir el .jar como artefacto
         uses: actions/upload-artifact@v4
         with:
           name: sweet_chaos_difficulty
-          path: build/libs/*.jar
+          path: ${{ steps.proj.outputs.dir }}/build/libs/*.jar
           if-no-files-found: error
 
       - name: Crear release (solo al subir un tag v*)
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
-          files: build/libs/*.jar
+          files: ${{ steps.proj.outputs.dir }}/build/libs/*.jar
