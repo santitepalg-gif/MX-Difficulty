@@ -1,0 +1,16 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": [
+    "sweet_calamity:candy_forest",
+    "sweet_calamity:cloying_fields",
+    "sweet_calamity:crunchy_garden",
+    "sweet_calamity:sticky_grove",
+    "sweet_calamity:sweet_plains"
+  ],
+  "spawners": {
+    "type": "alebrije_tiger:alebrije_tiger",
+    "weight": 6,
+    "minCount": 1,
+    "maxCount": 1
+  }
+}

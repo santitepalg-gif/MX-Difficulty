@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "sweet_calamity:cloying_fields",
+  "spawners": {
+    "type": "born_in_chaos_v1:krampus",
+    "weight": 5,
+    "minCount": 1,
+    "maxCount": 1
+  }
+}
